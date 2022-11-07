@@ -10,7 +10,7 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/auth/register', registerRouter);
+app.use('/api/auth', registerRouter);
 
 mongoose.connect(process.env.MONGODB_URI!, () => {
   console.log('Db connected');
