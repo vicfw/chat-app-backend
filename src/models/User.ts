@@ -2,16 +2,34 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  title: String, // String is shorthand for {type: String}
-  author: String,
-  body: String,
-  comments: [{ body: String, date: Date }],
-  date: { type: Date, default: Date.now },
-  hidden: Boolean,
-  meta: {
-    votes: Number,
-    favs: Number,
+  username: {
+    type: String,
+    required: true,
+    min: 3,
+    max: 20,
+    unique: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    min: 3,
+    max: 20,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    max: 6,
+  },
+  isAvatarImageSet: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  avatarImage: {
+    type: String,
+    default: '',
   },
 });
 
-const User = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);
