@@ -60,3 +60,50 @@ export const loginController = async (
     res.status(400).json({ status: 'error', message: e.message });
   }
 };
+
+export const setAvatarController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const { image } = req.body;
+
+  try {
+    const user = await User.findByIdAndUpdate(id, {
+      isAvatarImageSet: true,
+      avatarImage: image,
+    });
+
+    if (!user) {
+      return res.json({ success: false, data: 'something went wrong' });
+    }
+
+    return res.json({
+      success: true,
+      isSet: user?.isAvatarImageSet,
+      image: user?.avatarImage,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const getAllUsersController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const users = await User.find({ _id: { $ne: req.params.id } }).select([
+      'email',
+      'username',
+      'avatarImage',
+      '_id',
+    ]);
+
+    return res.json({ success: true, data: users });
+  } catch (e) {
+    next(e);
+  }
+};

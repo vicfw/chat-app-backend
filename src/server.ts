@@ -12,10 +12,6 @@ app.use(express.json());
 
 app.use('/api/auth', registerRouter);
 
-mongoose.connect(process.env.MONGODB_URI!, () => {
-  console.log('Db connected');
-});
+mongoose.connect(process.env.MONGODB_URI!, () => {});
 
-const server = app.listen(process.env.PORT, function () {
-  console.log(`App is listening on port ${process.env.PORT} !`);
-});
+const server = app.listen(process.env.PORT, function () {});
