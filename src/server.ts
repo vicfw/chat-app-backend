@@ -24,12 +24,8 @@ mongoose.connect(process.env.MONGODB_URI!, () => {
 
 server.listen(process.env.PORT, function () {});
 
-const io = new Server(server, {
-  cors: {
-    origin: process.env.CLIENT_URI,
-    credentials: true,
-  },
-});
+const io = new Server(server);
+
 // @ts-ignore
 global.onlineUsers = new Map();
 io.on('connection', (socket) => {
