@@ -70,19 +70,21 @@ export const setAvatarController = async (
   const { image } = req.body;
 
   try {
-    const user = await User.findByIdAndUpdate(id, {
-      isAvatarImageSet: true,
-      avatarImage: image,
-    });
+    const user = await User.findById(id);
 
     if (!user) {
       return res.json({ success: false, data: 'something went wrong' });
     }
 
+    user.isAvatarImageSet = true;
+    user.avatarImage = image;
+
+    await user.save();
+
     return res.json({
       success: true,
-      isSet: user?.isAvatarImageSet,
-      image: user?.avatarImage,
+      isSet: user.isAvatarImageSet,
+      image: user.avatarImage,
     });
   } catch (e) {
     next(e);
