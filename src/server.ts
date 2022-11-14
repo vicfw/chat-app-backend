@@ -28,6 +28,7 @@ const io = new Server(server,{
    cors: {
     origin: proccess.env.CLIENT_URI,
     credentials: true
+   }
   });
 
 // @ts-ignore
