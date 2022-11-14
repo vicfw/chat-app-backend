@@ -24,7 +24,11 @@ mongoose.connect(process.env.MONGODB_URI!, () => {
 
 server.listen(process.env.PORT, function () {});
 
-const io = new Server(server);
+const io = new Server(server,{
+   cors: {
+    origin: "https://example.com",
+    credentials: true
+  });
 
 // @ts-ignore
 global.onlineUsers = new Map();
