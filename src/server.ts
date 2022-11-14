@@ -26,7 +26,7 @@ server.listen(process.env.PORT, function () {});
 
 const io = new Server(server,{
    cors: {
-    origin: proccess.env.CLIENT_URI,
+    origin: process.env.CLIENT_URI,
     credentials: true
    }
   });
